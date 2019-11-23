@@ -1,0 +1,71 @@
+<h1>Borrow library item</h1>
+<div class="col-lg-12">
+    <div class="row"></div>
+</div>
+<div class="col-lg-12">
+    <form class="form-horizontal" autocomplete="off" (ngSubmit)="onSubmit()" #delete="ngForm">
+
+        <div *ngIf="borrowErrMessage != null" class="alert alert-danger">
+            {{borrowErrMessage}}
+        </div>
+        <div *ngIf="borrowSucMessage != null" class="alert alert-success">
+            {{borrowSucMessage}}
+        </div>
+
+        <div class="form-group">
+            <label class="col-lg-3 control-label">
+                ISBN
+                <span class="text-danger" style="display:inline;">*</span>
+            </label>
+            <div class="col-lg-9">
+                <input type="text" placeholder="Enter ISBN to delete" class="form-control" id="isbn" required
+                    [(ngModel)]="model.isbn" name="isbn" maxlength="200" #isbn="ngModel">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-lg-3 control-label">Borrower's name
+                <span class="text-danger" style="display:inline;">*</span>
+            </label>
+            <div class="col-lg-9">
+                <input type="text" placeholder="Enter the Borrower name" class="form-control" id="borrower" required [(ngModel)]="model.borrower"
+                    maxlength="200" name="borrower" #borrower="ngModel">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-lg-3 control-label">
+                Borrower's Contact No
+                <span class="text-danger" style="display:inline;">*</span>
+            </label>
+            <div class="col-lg-9">
+                <input type="text" placeholder="Enter the Borrower's Contact No" class="form-control" id="borrowerNo" required
+                    [(ngModel)]="model.borrowerNo" maxlength="10" pattern="[0-9]+" name="borrowerNo" #borrowerNo="ngModel">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-lg-3 control-label">
+                Borrower's Email
+                <span class="text-danger" style="display:inline;">*</span>
+            </label>
+            <div class="col-lg-9">
+                <input type="tel" placeholder="Enter the Borrower's Email" class="form-control" id="borrowerEmail" required
+                    [(ngModel)]="model.borrowerEmail" name="borrowerEmail" #borrowerEmail="ngModel">
+            </div>
+        </div>
+
+        <div *ngIf="borrowSucMessage != null" class="form-group">
+                <label class="col-lg-3 control-label">Free spaces left</label>
+                <label class="col-lg-3 control-label">{{freeSpace[0]}} Books</label>
+                <label class="col-lg-3 control-label">{{freeSpace[1]}} DVDs</label>
+        </div>
+
+        <div class="form-group">
+            <div class="col-lg-offset-2 col-lg-9">
+                <button class="btn btn-default" type="button" (click)="cancel()">Back</button>
+                <button type="submit" [disabled]="!delete.form.valid" class="btn btn-success">Save</button>
+            </div>
+        </div>
+    </form>
+</div>

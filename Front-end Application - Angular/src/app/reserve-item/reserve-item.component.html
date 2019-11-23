@@ -1,0 +1,51 @@
+<h1>Reserve library item</h1>
+<div class="col-lg-12">
+    <div class="row"></div>
+</div>
+<div class="col-lg-12">
+    <form class="form-horizontal" autocomplete="off" (ngSubmit)="onSubmit()" #delete="ngForm">
+
+        <div *ngIf="borrowErrMessage != null" class="alert alert-danger">
+            {{borrowErrMessage}}
+        </div>
+        <div *ngIf="borrowSucMessage != null" class="alert alert-success">
+            {{borrowSucMessage}}
+        </div>
+
+        <div class="form-group">
+            <label class="col-lg-3 control-label">
+                ISBN
+                <span class="text-danger" style="display:inline;">*</span>
+            </label>
+            <div class="col-lg-9">
+                <input type="text" placeholder="Enter ISBN to delete" class="form-control" id="isbn" required
+                    [(ngModel)]="isbnStr" name="isbn" maxlength="200" #isbn="ngModel">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-lg-3 control-label">Borrower's name</label>
+            <div class="col-lg-9">
+                <input type="text" placeholder="Enter the Borrower name" class="form-control" id="borrower" [(ngModel)]="borrower"
+                    maxlength="200" name="borrower" #borrowerName="ngModel">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-lg-3 control-label">
+                Borrowed Date
+            </label>
+            <div class="col-lg-9">
+                <input type="date" placeholder="Enter the Borrowed Date" class="form-control" id="borrowedDate"
+                    [(ngModel)]="borrowDate" name="borrowedDate" #borrowedDate="ngModel">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-lg-offset-2 col-lg-9">
+                <button class="btn btn-default" type="button" (click)="cancel()">Back</button>
+                <button type="submit" [disabled]="!delete.form.valid" class="btn btn-success">Save</button>
+            </div>
+        </div>
+    </form>
+</div>

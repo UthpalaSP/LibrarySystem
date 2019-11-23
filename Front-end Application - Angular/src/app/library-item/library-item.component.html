@@ -1,0 +1,142 @@
+<h1>{{componetTitle}}</h1>
+<div class="col-lg-12">
+    <div class="row"></div>
+</div>
+<div class="col-lg-12">
+    <form class="form-horizontal" autocomplete="off" (ngSubmit)="onSubmit()" #itemForm="ngForm">
+
+        <div *ngIf="noSpaceMessage != null" class="alert alert-danger">
+            {{noSpaceMessage}}
+        </div>
+        <div *ngIf="successMessage != null" class="alert alert-success">
+            {{successMessage}}
+        </div>
+
+        <div class="form-group">
+            <label class="col-lg-3 control-label">
+                Item Name
+                <span class="text-danger" style="display:inline;">*</span>
+            </label>
+            <div class="col-lg-9">
+                <input type="text" placeholder="Enter item name" class="form-control" id="title" required [(ngModel)]="model.title"
+                       name="title" maxlength="200" #title="ngModel">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-lg-3 control-label">Sector</label>
+            <div class="col-lg-9">
+                <input type="text" placeholder="Enter the sector" class="form-control" id="sector" [(ngModel)]="model.sector"
+                       maxlength="200" name="sector" #sector="ngModel">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-lg-3 control-label">
+                Published Date
+                <span class="text-danger" style="display:inline;">*</span>
+            </label>
+            <div class="col-lg-9">
+                <input type="date" placeholder="Enter the Published Date" class="form-control" id="datePublished" required [(ngModel)]="model.datePublished"
+                       name="datePublished" #datePublished="ngModel">
+            </div>
+        </div>
+
+        <!-- <div class="form-group">
+            <label class="col-lg-3 control-label">
+                Price
+                <span class="text-danger" style="display:inline;">*</span>
+            </label>
+            <div class="col-lg-9">
+                <input type="number" placeholder="Enter the price" class="form-control" id="price" required [(ngModel)]="model.price"
+                    name="price" #price="ngModel">
+            </div>
+        </div> -->
+
+        <div class="form-group">
+            <label class="col-lg-3 control-label">ISBN
+                <span class="text-danger" style="display:inline;">*</span>
+            </label>
+            <div class="col-lg-9">
+                <input type="number" placeholder="ISBN" class="form-control" id="isbn" [(ngModel)]="model.isbn"
+                  required maxlength="200" name="isbn" #isbn="ngModel">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-lg-3 control-label">Select Item Type</label>
+            <div class="col-lg-9">
+                <select class="form-control" id="itemType" name="itemType" [(ngModel)]="model.itemType" #itemType="ngModel">
+                    <option value="1" selected="true">Book</option>
+                    <option value="2">Dvd</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- if book -->
+        <!-- noOfPages -->
+        <div *ngIf="model.itemType == 1" class="form-group">
+            <label class="col-lg-3 control-label">No of Pages</label>
+            <div class="col-lg-9">
+                <input type="number" placeholder="Number of pages for the book" class="form-control" id="noOfPages" [(ngModel)]="model.noOfPages"
+                    name="noOfPages" #noOfPages="ngModel">
+            </div>
+        </div>
+        <!-- authors -->
+        <!-- add tags -->
+        <div *ngIf="model.itemType == 1" class="form-group">
+            <label class="col-lg-3 control-label">Authors</label>
+            <div class="col-lg-9">
+                <input type="text" placeholder="Author name separated by commas" class="form-control" id="authors" [(ngModel)]="model.authors"
+                    maxlength="2000" name="authors">
+            </div>
+        </div>
+
+        <!-- if dvd -->
+        <!-- languages -->
+        <div *ngIf="model.itemType == 2" class="form-group">
+            <label class="col-lg-3 control-label">Languages</label>
+            <div class="col-lg-9">
+                <input type="text" required placeholder="Language separated by commas" class="form-control" id="languages" [(ngModel)]="model.languages"
+                       maxlength="200" name="languages">
+            </div>
+        </div>
+        <!-- subtitles -->
+        <div *ngIf="model.itemType == 2" class="form-group">
+            <label class="col-lg-3 control-label">Subtitles</label>
+            <div class="col-lg-9">
+                <input type="text" required placeholder="Subtitle language separated by commas" class="form-control" id="subtitles" [(ngModel)]="model.subtitles"
+                       maxlength="200" name="subtitles">
+            </div>
+        </div>
+        <!-- producer -->
+        <div *ngIf="model.itemType == 2" class="form-group">
+            <label class="col-lg-3 control-label">Producer</label>
+            <div class="col-lg-9">
+                <input type="text" placeholder="Producer name" class="form-control" id="producer" [(ngModel)]="model.producer"
+                       maxlength="200" name="producer">
+            </div>
+        </div>
+        <!-- actors -->
+        <div *ngIf="model.itemType == 2" class="form-group">
+            <label class="col-lg-3 control-label">Actors</label>
+            <div class="col-lg-9">
+                <input type="text" placeholder="Actors separated by commas" class="form-control" id="actors" [(ngModel)]="model.actors"
+                       maxlength="200" name="actors">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-lg-3 control-label">Free spaces left</label>
+            <label *ngIf="model.itemType == 1" class="col-lg-3 control-label">{{freeSpace[0]}} Books</label>
+            <label *ngIf="model.itemType == 2" class="col-lg-3 control-label">{{freeSpace[1]}} DVDs</label>
+        </div>
+
+        <div class="form-group">
+            <div class="col-lg-offset-2 col-lg-9">
+                <button class="btn btn-default" type="button" (click)="cancel()">Back</button>
+                <button type="submit" [disabled]="!itemForm.form.valid" class="btn btn-success">Save</button>
+            </div>
+        </div>
+    </form>
+</div>

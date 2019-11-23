@@ -1,0 +1,58 @@
+
+<div class="col-lg-12">
+    <div class="row">
+        <h1>View all library items</h1>
+    </div>
+    <div *ngIf="noSpaceMessage != null" class="alert alert-danger">
+        {{noSpaceMessage}}
+    </div>
+    <div *ngIf="deleteMessage != null" class="alert alert-success">
+        {{deleteMessage}}
+    </div>
+    <div *ngIf="deleteMessage != null" class="form-group">
+        <label class="col-lg-3 control-label">Free spaces left</label>
+        <label *ngIf="itemType == 1" class="col-lg-3 control-label">{{freeSpace[0]}} Books</label>
+        <label *ngIf="itemType == 2" class="col-lg-3 control-label">{{freeSpace[1]}} DVDs</label>
+    </div>
+    <div class="row">
+        <label class="col-lg-3 control-label">Search</label>
+        <input type="text" id="search" placeholder="Search by name" class="short-input form-control">
+    </div>
+</div>
+<div class="col-lg-12">
+    <div class="">
+        <table class="table table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Sector</th>
+                    <th>Published Date</th>
+                    <th>Type</th>
+                    <th>ISBN</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of items; index as i">
+                    <td>{{item.title}}</td>
+                    <td>{{item.sector}}</td>
+                    <td>{{item.publishedDate.year}}-{{item.publishedDate.month}}-{{item.publishedDate.day}}</td>
+                    <td>
+                        <span *ngIf="item.itemType == 1">Book</span>
+                        <span *ngIf="item.itemType == 2">DVD</span>
+                    </td>
+                    <td>{{item.isbn}}</td>
+                    <td>
+                        <span *ngIf="item.borrower == null"  class="label label-success">Available</span>
+                        <span *ngIf="item.borrower != null" class="label label-danger">Not available</span>
+                    </td>
+                    <td colspan="2">
+                        <button type="button" class="btn btn-primary" (click)="edit(item,i)">Edit</button> 
+                        <button type="button" class="btn btn-danger" (click)="delete(item.uuid,i)">Delete</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

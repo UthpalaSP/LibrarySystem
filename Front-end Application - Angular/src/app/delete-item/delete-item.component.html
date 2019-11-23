@@ -1,0 +1,36 @@
+<h1>Delete library item</h1>
+<div class="col-lg-12">
+    <div class="row"></div>
+</div>
+<div class="col-lg-12">
+    <form class="form-horizontal" autocomplete="off" (ngSubmit)="onSubmit()" #delete="ngForm">
+
+        <div *ngIf="deleteMessage != null" class="alert alert-success">
+            {{deleteMessage}}
+        </div>
+
+        <div class="form-group">
+            <label class="col-lg-3 control-label">
+                ISBN
+                <span class="text-danger" style="display:inline;">*</span>
+            </label>
+            <div class="col-lg-9">
+                <input type="text" placeholder="Enter ISBN to delete" class="form-control" id="id" required [(ngModel)]="isbnStr"
+                       name="id" maxlength="200" #id="ngModel">
+            </div>
+        </div>
+
+        <div *ngIf="isDeleted" class="form-group">
+                <label class="col-lg-3 control-label">Free spaces left</label>
+                <label class="col-lg-3 control-label">{{freeSpace[0]}} Books</label>
+                <label class="col-lg-3 control-label">{{freeSpace[1]}} DVDs</label>
+        </div>
+
+        <div class="form-group">
+            <div class="col-lg-offset-2 col-lg-9">
+                <button class="btn btn-default" type="button" (click)="cancel()">Back</button>
+                <button type="submit" [disabled]="!delete.form.valid" class="btn btn-success">Delete</button>
+            </div>
+        </div>
+    </form>
+</div>
